@@ -4,8 +4,10 @@ from toolsmith.bench.split import HeldOutAccessError, Split, Task, select
 
 
 def make_tasks(n: int = 200) -> list[Task]:
-    return [Task(task_id=f"t{i}", request=f"request {i}", expected_tools=("read_file",))
-            for i in range(n)]
+    return [
+        Task(task_id=f"t{i}", request=f"request {i}", expected_tools=("read_file",))
+        for i in range(n)
+    ]
 
 
 def test_split_assignment_is_deterministic() -> None:
