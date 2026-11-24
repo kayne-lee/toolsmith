@@ -33,3 +33,28 @@ Repository created. Structure, tooling, and CI in place; no server code yet.
   itself is a security problem, not a feature.
 
 **Next:** Milestone 1, server and tool surface. See `PLAN.md`.
+
+---
+
+## Plan amendment: the optimizer is the product
+
+No code changed. `PLAN.md` and `README.md` amended.
+
+**Decided:**
+- The optimizer and benchmark are the product and must work against any MCP
+  server, including ones toolsmith cannot edit. The codebase-intelligence
+  server is now the *reference target*: the test subject we control, not the
+  deliverable.
+- Optimizations are applied by an MCP proxy between client and target, which
+  records calls and serves overridden descriptions, schemas, and macros. The
+  target is never modified. Macros stay compositions of the target's existing
+  tools, so the no-code-generation rule still holds.
+- Milestone 3 becomes "Proxy and telemetry": telemetry is recorded in the proxy,
+  not inside the server, so it works for third-party targets.
+- Milestone 2's harness connects to a target as an MCP client from a launch
+  command; task suites belong to a target.
+- Milestone 7 adds a second, third-party MCP server with its own suite, as
+  evidence the optimizer is not tuned to the reference target.
+- The reference target's code must not be imported by the optimizer packages.
+
+**Next:** Milestone 1, reference target server. See `PLAN.md`.

@@ -1,7 +1,13 @@
 # toolsmith
 
-An MCP server that rewrites its own tool surface from usage data, and measures
-whether that made it better.
+An optimizer and benchmark for MCP tool surfaces: it rewrites any MCP server's
+tool descriptions and schemas from usage data, and measures whether that made it
+better.
+
+The optimizer works through a proxy that sits between the client and the target
+server, records every call, and serves the target's tools with optimized
+definitions laid over the originals. The target server is never modified, so it
+can be one you did not write.
 
 ## The claim, and why it needs a benchmark
 
@@ -16,10 +22,11 @@ and after optimization. If that number does not move, the project's finding is
 that this approach does not work — which is a result, and it gets reported as
 one.
 
-## What the server does
+## The reference target
 
-A tool surface needs to be real to be worth optimizing, so `toolsmith` serves
-**codebase intelligence** over a Git repository:
+A tool surface needs to be real to be worth optimizing, and developing against
+someone else's server leaves nothing under control. So `toolsmith` ships its own
+test subject, a **codebase intelligence** server over a Git repository:
 
 | Tool | Purpose |
 |---|---|
@@ -34,6 +41,9 @@ A tool surface needs to be real to be worth optimizing, so `toolsmith` serves
 Seven tools with genuinely overlapping purposes — `search_code`, `find_symbol`,
 and `find_references` are all "find where a thing is", which is exactly the
 ambiguity that makes tool selection hard and therefore worth optimizing.
+
+The optimizer reaches this server only over the MCP protocol, as it would any
+third-party server, and never imports its code.
 
 ## The three optimizations
 
