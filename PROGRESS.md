@@ -58,3 +58,49 @@ No code changed. `PLAN.md` and `README.md` amended.
 - The reference target's code must not be imported by the optimizer packages.
 
 **Next:** Milestone 1, reference target server. See `PLAN.md`.
+
+---
+
+## Plan amendment: frontend
+
+No code changed. `PLAN.md` and `README.md` amended.
+
+**Decided:**
+- A local web frontend (`toolsmith ui`) becomes milestone 7; results move to 8.
+  The point of the project is a before-and-after, and people should be able to
+  see it without reading logs.
+- The frontend is read-only over structured records in `runs/`. Milestones 2–6
+  each write their output there in a versioned format, so the frontend has data
+  from the start and anything it shows is reproducible.
+- The tool-confusion matrix (needed tool against picked tool) is the main view,
+  since tool overlap is the problem the optimizer targets.
+- Held-out numbers are hidden in the frontend until published, matching the
+  guard on the split in code.
+- UI framework not chosen yet; decide at milestone 7.
+
+**Next:** Milestone 1, reference target server. See `PLAN.md`.
+
+---
+
+## Plan amendment: frontend moves to milestone 2
+
+No code changed. `PLAN.md` amended. Supersedes the placement in the previous
+entry, which put the frontend at milestone 7.
+
+**Decided:**
+- The frontend is milestone 2, right after the reference target, so development
+  can be watched as it happens rather than only once it is finished.
+- Milestone 2 builds the foundation: `toolsmith ui`, the versioned `runs/`
+  record format, a project view (milestones, this log, benchmark numbers with
+  their splits) and a tool surface view (a target's tools as `tools/list`
+  reports them).
+- Every later milestone adds the view for what it produces, and its "Done when"
+  includes that view working: runs and tool confusion (3), failures (4),
+  optimization history (5, extended in 6), macro tradeoff (7), held-out
+  results (8).
+- Milestones renumbered: benchmark 3, proxy and telemetry 4, description
+  rewriting 5, schema tightening 6, macro synthesis 7, results 8.
+- UI framework is chosen at milestone 2.
+
+**Next:** Milestone 1, reference target server. See `PLAN.md`.
+

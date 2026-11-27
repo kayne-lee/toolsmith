@@ -71,6 +71,15 @@ genuinely worse idea: arbitrary generation plus execution, in the component an
 agent is trusting. Descriptions, schemas, and composition of *existing*
 implementations get the result without that.
 
+## Seeing it
+
+`toolsmith ui` starts a local web frontend. It is built early and grows with
+each milestone, so it shows the project's progress as well as the results. It
+shows a target's tool surface and what optimization did to it: which tools get confused with which, how each
+tool fails, every proposed change as a diff with its before/after numbers, and
+whether it was kept. It reads the run records the benchmark and optimizer write
+and changes nothing.
+
 ## Measuring
 
 `bench/` holds a task suite split into a development half and a held-out half.
