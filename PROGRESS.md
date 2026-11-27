@@ -155,9 +155,8 @@ No benchmark numbers yet; the benchmark is milestone 3.
 
 **Blocked:** nothing.
 
-**Note:** the GitHub issues still carry the old seven-milestone titles and
-numbering (#2 "Benchmark harness" is now milestone 3, and there is no issue for
-the frontend milestone). They should be retitled before milestone 2 starts.
+**Issues:** retitled to the eight-milestone plan. Issues #2–#7 are now
+milestones 3–8, and the frontend foundation is #11.
 
 **Next:** Milestone 2, frontend foundation. See `PLAN.md`. The UI framework is
 chosen there.
