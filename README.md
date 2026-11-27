@@ -34,7 +34,7 @@ test subject, a **codebase intelligence** server over a Git repository:
 | `read_file` | File contents, optionally a line range |
 | `find_symbol` | Locate a definition by name |
 | `find_references` | Where a symbol is used |
-| `trace_dependencies` | Import and call graph traversal |
+| `trace_dependencies` | Import graph traversal, either direction (Python) |
 | `search_commits` | Commit history by message, author, or path |
 | `blame_range` | Who last changed a line range, and in which commit |
 
@@ -97,6 +97,12 @@ for rewriting and for benchmark scoring.
 ```bash
 uv sync
 uv run pytest
+```
+
+Run the reference target over stdio, pointed at any Git repository:
+
+```bash
+uv run toolsmith reference --repo /path/to/repo
 ```
 
 Serving the tools needs only a Git repository to point at. Optimization and

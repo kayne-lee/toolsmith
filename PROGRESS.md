@@ -104,3 +104,59 @@ entry, which put the frontend at milestone 7.
 
 **Next:** Milestone 1, reference target server. See `PLAN.md`.
 
+
+---
+
+## Milestone 1 — Reference target server
+
+Built `toolsmith.reference`: the seven codebase-intelligence tools over a Git
+repository, served over stdio with `toolsmith reference --repo PATH`.
+
+**Done-when check:** met. `tests/test_reference_server.py` launches the server
+over stdio as a subprocess, connects with an MCP client, and calls all seven
+tools against this repository, asserting each result is correct (for example,
+`find_symbol("Split")` returns the line `read_file` shows as `class Split`).
+34 tests pass; ruff, ruff format, and mypy strict are clean.
+
+No benchmark numbers yet; the benchmark is milestone 3.
+
+**Decided:**
+- Operations live in `reference/repo.py` as plain Python with no MCP in it;
+  `reference/server.py` is a thin layer of names and descriptions. The
+  operations are tested directly against a fixture repository with fixed
+  history (`tests/conftest.py`), so assertions are exact.
+- First-draft descriptions are one line each ("Search the code.", "Find a
+  symbol.") and kept in one `DESCRIPTIONS` table. Schemas are loose on purpose:
+  `direction` and `since` are free strings, paths are unconstrained, no
+  parameter has a description. This is the "before"; it must not be polished
+  here. Changes belong in the proxy's overrides from milestone 4.
+- Everything shells out to `git`, so results cover tracked and
+  new-but-not-ignored files and respect `.gitignore`.
+- `find_symbol` uses `git grep -w` to narrow, then per-language regexes in
+  Python to decide which lines are definitions. git's regex dialect varies by
+  build (`\s` and `\b` silently matched nothing), so matching is done in `re`.
+  Supported: Python, JavaScript, TypeScript, Go, Rust, Java.
+- `trace_dependencies` is a Python import graph in either direction
+  (`imports`, `imported_by`) with a depth. **This narrows the README's original
+  "import and call graph" to imports only.** A call graph is a large job on its
+  own, and the import graph already gives the overlap with `find_references`
+  that the benchmark needs. README updated to match. Revisit if milestone 3's
+  tasks need call-level questions.
+- Errors from the repository reach the model with their reason. The MCP 2.x SDK
+  hides the text of any exception other than `ToolError`, so `RepoError` is
+  converted. The model needs the reason to recover, and telemetry needs it to
+  classify the failure.
+- Moved to the MCP Python SDK 2.x (`MCPServer`, formerly `FastMCP`), pinned
+  `mcp>=2.3,<3`.
+- Removed the empty `server/` and `tools/` scaffold packages, which belonged to
+  the earlier self-modifying design. The proxy will get its own package.
+- A test enforces the plan's boundary: nothing in `src/toolsmith` outside
+  `reference/` imports it, except `cli.py`, which launches it.
+
+**Blocked:** nothing.
+
+**Issues:** retitled to the eight-milestone plan. Issues #2–#7 are now
+milestones 3–8, and the frontend foundation is #11.
+
+**Next:** Milestone 2, frontend foundation. See `PLAN.md`. The UI framework is
+chosen there.
