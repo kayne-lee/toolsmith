@@ -1,3 +1,3 @@
-"""toolsmith: an MCP server that optimizes its own tool surface from usage telemetry."""
+"""toolsmith: an optimizer and benchmark for MCP tool surfaces."""
 
 __version__ = "0.1.0"
